@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/py" />
       <excludeFolder url="file://$MODULE_DIR$/py_filter_durhs" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (filtragem_durhs)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (filter_durhs)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
