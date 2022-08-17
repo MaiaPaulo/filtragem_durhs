@@ -12,6 +12,13 @@ from requests import Request
 from sqlalchemy import create_engine
 import geoalchemy2
 
+# Here we have a process to solve a problem with the data acquisition
+# on siga's website. The Durh's file are too big to export together
+# so we have two files, one with durhs but without all the processes
+# and other with all the processes. What we do here is a spatial correlation
+# to get the difference between Durhs and proc and append it on the durhs file.
+
+
 # Creating engine to connect the DB
 engine = create_engine("postgresql://adm_geout:ssdgeout@10.207.30.15:5432/geout")
 
@@ -105,8 +112,8 @@ def run(durhs, proc):
 # URL for WFS backend
 url = "https://siga.meioambiente.go.gov.br/gs/ows?service=WFS&"
 
-# Initialize
-wfs = WebFeatureService(url=url, username='paulo.smaia', password='Tumtum311', version="1.1.0", timeout=360)
+# Initialize, put your credentials here
+wfs = WebFeatureService(url=url, username='username', password='password', version="1.1.0", timeout=360)
 
 # Specify the parameters for fetching the data
 data_proc = wfs.getfeature(typename='geonode:vw_espacializacao_processo_weboutorga', outputFormat='gml3')
@@ -116,6 +123,7 @@ durhs = gpd.read_file(data_durh)
 durhs = durhs[durhs.geometry.type == 'Point']
 proc = gpd.read_file(data_proc)
 proc = proc[proc.geometry.type == 'Point']
-# durhs['geometry'] = durhs['geometry'].fillna(asPoint(0.0))
+
+# Run all the functions with durhs and proc.
 run(durhs, proc)
 
